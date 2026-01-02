@@ -13,6 +13,7 @@
   
   <div class="stats-grid">
     <div class="stat-card books">
+      <span class="stat-icon">📖</span>
       <div class="stat-content">
         <span class="stat-number">{data.stats.totalBooks}</span>
         <span class="stat-label">Libros leídos</span>
