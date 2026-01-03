@@ -9,6 +9,8 @@
   import PlusIcon from '$lib/icons/plus.svg';
   import LinkIcon from '$lib/icons/link.svg';
   import TheaterIcon from '$lib/icons/theater.svg';
+  import LogoIcon from '$lib/icons/logo.svg';
+
 </script>
 
 <svelte:head>
@@ -17,7 +19,7 @@
 
 <div class="dashboard">
   <header class="hero">
-    <h1>Registro de lecturas</h1>--
+    <h1>Reading Tracker 2026</h1>
   </header>
   
   <div class="stats-grid">
@@ -122,6 +124,17 @@
   .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .logo-icon {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .subtitle {

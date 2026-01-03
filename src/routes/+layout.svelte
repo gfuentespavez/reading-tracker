@@ -1,10 +1,14 @@
 <script>
   import '../app.css';
+  import LogoIcon from '$lib/icons/logo.svg';
 </script>
 
 <div class="app">
   <nav class="navbar">
-    <a href="/" class="logo">📚 Reading Tracker 2026</a>
+    <a href="/" class="logo">
+      <img src={LogoIcon} alt="Logo" class="logo-icon" />
+      Reading Tracker 2026
+    </a>
     <div class="nav-links">
       <a href="/books">Libros</a>
       <a href="/articles">Artículos</a>
@@ -37,10 +41,20 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
-  
+
   .logo:hover {
     text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .nav-links {
