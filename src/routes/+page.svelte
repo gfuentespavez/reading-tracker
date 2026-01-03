@@ -1,5 +1,14 @@
 <script>
   export let data;
+
+  // Import SVG icons
+  import BookIcon from '$lib/icons/book.svg';
+  import PageIcon from '$lib/icons/page.svg';
+  import ArticleIcon from '$lib/icons/article.svg';
+  import TimerIcon from '$lib/icons/timer.svg';
+  import PlusIcon from '$lib/icons/plus.svg';
+  import LinkIcon from '$lib/icons/link.svg';
+  import TheaterIcon from '$lib/icons/theater.svg';
 </script>
 
 <svelte:head>
@@ -13,7 +22,7 @@
   
   <div class="stats-grid">
     <div class="stat-card books">
-      <span class="stat-icon">📖</span>
+      <span class="stat-icon"><img src={BookIcon} alt="Books" /></span>
       <div class="stat-content">
         <span class="stat-number">{data.stats.totalBooks}</span>
         <span class="stat-label">Libros leídos</span>
@@ -22,7 +31,7 @@
     </div>
     
     <div class="stat-card pages">
-      <span class="stat-icon">📄</span>
+      <span class="stat-icon"><img src={PageIcon} alt="Pages" /></span>
       <div class="stat-content">
         <span class="stat-number">{data.stats.totalPages?.toLocaleString() || 0}</span>
         <span class="stat-label">Páginas totales</span>
@@ -30,7 +39,7 @@
     </div>
     
     <div class="stat-card articles">
-      <span class="stat-icon">📰</span>
+      <span class="stat-icon"><img src={ArticleIcon} alt="Articles" /></span>
       <div class="stat-content">
         <span class="stat-number">{data.stats.totalArticles}</span>
         <span class="stat-label">Artículos leídos</span>
@@ -39,7 +48,7 @@
     </div>
     
     <div class="stat-card avg-days">
-      <span class="stat-icon">⏱️</span>
+      <span class="stat-icon"><img src={TimerIcon} alt="Timer" /></span>
       <div class="stat-content">
         <span class="stat-number">{data.stats.avgDaysPerBook || '—'}</span>
         <span class="stat-label">Días promedio/libro</span>
@@ -51,11 +60,11 @@
     <h2>Acciones rápidas</h2>
     <div class="actions-grid">
       <a href="/books?new=1" class="action-card">
-        <span class="action-icon">➕</span>
+        <span class="action-icon"><img src={PlusIcon} alt="Add" /></span>
         <span>Registrar libro</span>
       </a>
       <a href="/articles?new=1" class="action-card">
-        <span class="action-icon">🔗</span>
+        <span class="action-icon"><img src={LinkIcon} alt="Link" /></span>
         <span>Agregar artículo</span>
       </a>
     </div>
@@ -67,7 +76,9 @@
       <div class="recent-list">
         {#each data.recentBooks as book}
           <div class="recent-item">
-            <span class="item-type">{book.type === 'ficción' ? '🎭' : '📖'}</span>
+            <span class="item-type">
+              <img src={book.type === 'ficción' ? TheaterIcon : BookIcon} alt={book.type} />
+            </span>
             <div class="item-info">
               <strong>{book.title}</strong>
               <span class="item-meta">{book.pages} págs · {book.days_to_read || '?'} días</span>
@@ -84,7 +95,7 @@
       <div class="recent-list">
         {#each data.recentArticles as article}
           <div class="recent-item">
-            <span class="item-type">📰</span>
+            <span class="item-type"><img src={ArticleIcon} alt="Article" /></span>
             <div class="item-info">
               <strong>{article.title}</strong>
               <span class="item-meta">{article.media_name} · {article.category}</span>
@@ -135,7 +146,18 @@
   }
   
   .stat-icon {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .stat-content {
@@ -190,7 +212,18 @@
   }
   
   .action-icon {
-    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .recent-list {
@@ -210,7 +243,18 @@
   }
   
   .item-type {
-    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-type img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .item-info {

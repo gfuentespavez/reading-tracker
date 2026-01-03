@@ -1,7 +1,11 @@
 <script>
   import { enhance } from '$app/forms';
   import { page } from '$app/stores';
-  
+
+  // Import SVG icons
+  import BookIcon from '$lib/icons/book.svg';
+  import TheaterIcon from '$lib/icons/theater.svg';
+
   export let data;
   export let form;
   
@@ -36,21 +40,21 @@
 
 <div class="books-page">
   <header class="page-header">
-    <h1>📚 Libros</h1>
+    <h1><img src={BookIcon} alt="Books" class="header-icon" /> Libros</h1>
     <button class="btn-primary" on:click={() => showForm = !showForm}>
-      {showForm ? '✕ Cerrar' : '+ Nuevo libro'}
+      {showForm ? 'Cerrar' : '+ Nuevo libro'}
     </button>
   </header>
   
   {#if form?.success}
     <div class="alert success">
-      ✓ Libro "{form.title}" guardado correctamente
+      Libro "{form.title}" guardado correctamente
     </div>
   {/if}
-  
+
   {#if form?.error}
     <div class="alert error">
-      ✕ Error: {form.error}
+      Error: {form.error}
     </div>
   {/if}
   
@@ -139,11 +143,11 @@
           <label for="rating">Rating (1-5)</label>
           <select id="rating" name="rating" bind:value={rating}>
             <option value="">Sin rating</option>
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
           </select>
         </div>
         
@@ -173,7 +177,7 @@
   <div class="books-list">
     {#if data.books.length === 0}
       <div class="empty-state">
-        <span class="empty-icon">📚</span>
+        <span class="empty-icon"><img src={BookIcon} alt="Books" /></span>
         <p>No hay libros registrados aún</p>
         <button class="btn-primary" on:click={() => showForm = true}>
           Registrar primer libro
@@ -188,7 +192,7 @@
       {#each data.books as book}
         <div class="book-card">
           <div class="book-type">
-            {book.type === 'ficción' ? '🎭' : '📖'}
+            <img src={book.type === 'ficción' ? TheaterIcon : BookIcon} alt={book.type} />
           </div>
           <div class="book-info">
             <h3>{book.title}</h3>
@@ -201,7 +205,7 @@
                 <span>{book.days_to_read} días</span>
               {/if}
               {#if book.rating}
-                <span>{'⭐'.repeat(book.rating)}</span>
+                <span>{'★'.repeat(book.rating)}</span>
               {/if}
             </div>
           </div>
@@ -231,6 +235,16 @@
   
   .page-header h1 {
     font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .btn-primary {
@@ -365,9 +379,19 @@
   }
   
   .empty-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 1rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .empty-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .empty-state p {
@@ -391,7 +415,18 @@
   }
   
   .book-type {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-type img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .book-info {

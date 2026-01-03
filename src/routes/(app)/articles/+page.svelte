@@ -2,7 +2,10 @@
   import { enhance } from '$app/forms';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  
+
+  // Import SVG icons
+  import ArticleIcon from '$lib/icons/article.svg';
+
   export let data;
   export let form;
   
@@ -129,21 +132,21 @@
 
 <div class="articles-page">
   <header class="page-header">
-    <h1>📰 Artículos</h1>
+    <h1><img src={ArticleIcon} alt="Articles" class="header-icon" /> Artículos</h1>
     <button class="btn-primary" on:click={() => showForm ? closeForm() : showForm = true}>
-      {showForm ? '✕ Cerrar' : '+ Nuevo artículo'}
+      {showForm ? 'Cerrar' : '+ Nuevo artículo'}
     </button>
   </header>
   
   {#if form?.success}
     <div class="alert success">
-      ✓ Artículo guardado correctamente
+      Artículo guardado correctamente
     </div>
   {/if}
-  
+
   {#if form?.error}
     <div class="alert error">
-      ✕ Error: {form.error}
+      Error: {form.error}
     </div>
   {/if}
   
@@ -151,7 +154,7 @@
     <div class="article-form">
       {#if fromBookmarklet}
         <div class="bookmarklet-badge">
-          ✨ Datos importados desde bookmarklet
+          Datos importados desde bookmarklet
         </div>
       {/if}
       
@@ -167,19 +170,19 @@
               placeholder="https://ejemplo.com/noticia..."
               on:keydown={(e) => e.key === 'Enter' && (e.preventDefault(), scrapeUrl())}
             />
-            <button 
-              type="button" 
-              class="btn-scrape" 
+            <button
+              type="button"
+              class="btn-scrape"
               on:click={scrapeUrl}
               disabled={scraping || !url.trim()}
             >
-              {scraping ? '🔄 Extrayendo...' : '🔍 Extraer datos'}
+              {scraping ? 'Extrayendo...' : 'Extraer datos'}
             </button>
           </div>
           {#if scrapeError}
-            <p class="scrape-error">⚠️ {scrapeError} — completa los campos manualmente</p>
+            <p class="scrape-error">{scrapeError} — completa los campos manualmente</p>
           {/if}
-          <p class="scraper-tip">💡 Tip: Usa el <a href="/bookmarklet">bookmarklet</a> para importar artículos directamente desde el navegador</p>
+          <p class="scraper-tip">Tip: Usa el <a href="/bookmarklet">bookmarklet</a> para importar artículos directamente desde el navegador</p>
         </div>
       {/if}
       
@@ -317,7 +320,7 @@
   <div class="articles-list">
     {#if data.articles.length === 0}
       <div class="empty-state">
-        <span class="empty-icon">📰</span>
+        <span class="empty-icon"><img src={ArticleIcon} alt="Articles" /></span>
         <p>No hay artículos registrados aún</p>
         <button class="btn-primary" on:click={() => showForm = true}>
           Agregar primer artículo
@@ -372,6 +375,16 @@
   
   .page-header h1 {
     font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .btn-primary {
@@ -598,9 +611,19 @@
   }
   
   .empty-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 1rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .empty-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(2%) saturate(297%) hue-rotate(314deg) brightness(103%) contrast(97%);
   }
   
   .empty-state p {
